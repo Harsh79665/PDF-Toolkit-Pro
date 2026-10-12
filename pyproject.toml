@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-utility-toolkit"
+version = "1.0.0"
+description = "Your Complete PDF Workflow Toolkit — Secure, Accurate, and Non-destructive PDF Processing"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Harsh Patel" }
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Office/Business",
+  "Topic :: Multimedia :: Graphics"
+]
+dependencies = [
+  "pypdf>=5.0.0",
+  "pdfplumber>=0.11.0",
+  "reportlab>=4.0.0",
+  "pillow>=10.0.0",
+  "Flask>=3.0.0",
+  "Click>=8.1.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0"
+]
+
+[project.scripts]
+pdf-toolkit = "pdf_toolkit.cli:cli"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]

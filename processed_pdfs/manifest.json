@@ -1,0 +1,204 @@
+{
+  "d758884bdbdf_merged_cli.pdf": {
+    "file_id": "d758884bdbdf_merged_cli.pdf",
+    "display_name": "merged_cli.pdf",
+    "operation": "merge",
+    "page_count": 4,
+    "file_size": 2692,
+    "created_at": 1791811463.4251082,
+    "expires_at": 1791897863.4251082,
+    "is_zip": false
+  },
+  "efa04cf9d872_1_sample_3pages_page_1.pdf": {
+    "file_id": "efa04cf9d872_1_sample_3pages_page_1.pdf",
+    "display_name": "sample_3pages_page_1.pdf",
+    "operation": "split",
+    "page_count": 1,
+    "file_size": 1006,
+    "created_at": 1791811463.4397948,
+    "expires_at": 1791897863.4397948,
+    "is_zip": false
+  },
+  "efa04cf9d872_2_sample_3pages_page_2.pdf": {
+    "file_id": "efa04cf9d872_2_sample_3pages_page_2.pdf",
+    "display_name": "sample_3pages_page_2.pdf",
+    "operation": "split",
+    "page_count": 1,
+    "file_size": 1006,
+    "created_at": 1791811463.4430773,
+    "expires_at": 1791897863.4430773,
+    "is_zip": false
+  },
+  "efa04cf9d872_3_sample_3pages_page_3.pdf": {
+    "file_id": "efa04cf9d872_3_sample_3pages_page_3.pdf",
+    "display_name": "sample_3pages_page_3.pdf",
+    "operation": "split",
+    "page_count": 1,
+    "file_size": 1007,
+    "created_at": 1791811463.4479833,
+    "expires_at": 1791897863.4479833,
+    "is_zip": false
+  },
+  "efa04cf9d872_sample_3pages_split_pages.zip": {
+    "file_id": "efa04cf9d872_sample_3pages_split_pages.zip",
+    "display_name": "sample_3pages_split_pages.zip",
+    "operation": "split",
+    "page_count": 3,
+    "file_size": 2287,
+    "created_at": 1791811463.452058,
+    "expires_at": 1791897863.452058,
+    "is_zip": true
+  },
+  "54612ee2be77_rotated_cli.pdf": {
+    "file_id": "54612ee2be77_rotated_cli.pdf",
+    "display_name": "rotated_cli.pdf",
+    "operation": "rotate",
+    "page_count": 3,
+    "file_size": 2051,
+    "created_at": 1791811463.4666967,
+    "expires_at": 1791897863.4666967,
+    "is_zip": false
+  },
+  "bd8380a5fbc8_watermark_cli.pdf": {
+    "file_id": "bd8380a5fbc8_watermark_cli.pdf",
+    "display_name": "watermark_cli.pdf",
+    "operation": "watermark",
+    "page_count": 3,
+    "file_size": 3866,
+    "created_at": 1791811463.4875488,
+    "expires_at": 1791897863.4875488,
+    "is_zip": false
+  },
+  "f31ce486d549_sanitized_cli.pdf": {
+    "file_id": "f31ce486d549_sanitized_cli.pdf",
+    "display_name": "sanitized_cli.pdf",
+    "operation": "sanitize_metadata",
+    "page_count": 3,
+    "file_size": 2130,
+    "created_at": 1791811463.518119,
+    "expires_at": 1791897863.518119,
+    "is_zip": false
+  },
+  "e050259b9154_sample_3pages_extracted_text.txt": {
+    "file_id": "e050259b9154_sample_3pages_extracted_text.txt",
+    "display_name": "sample_3pages_extracted_text.txt",
+    "operation": "extract_text",
+    "page_count": 0,
+    "file_size": 346,
+    "created_at": 1791811463.5363438,
+    "expires_at": 1791897863.5363438,
+    "is_zip": false,
+    "is_text": true
+  },
+  "3201ecddacfb_merged_document.pdf": {
+    "file_id": "3201ecddacfb_merged_document.pdf",
+    "display_name": "merged_document.pdf",
+    "operation": "merge",
+    "page_count": 4,
+    "file_size": 2692,
+    "created_at": 1791811463.997824,
+    "expires_at": 1791897863.997824,
+    "is_zip": false
+  },
+  "b9e7d188a0b8_rot_rotated_90deg.pdf": {
+    "file_id": "b9e7d188a0b8_rot_rotated_90deg.pdf",
+    "display_name": "rot_rotated_90deg.pdf",
+    "operation": "rotate",
+    "page_count": 3,
+    "file_size": 2051,
+    "created_at": 1791811464.0157394,
+    "expires_at": 1791897864.0157394,
+    "is_zip": false
+  },
+  "bc953e9706b6_extract_extracted_text.txt": {
+    "file_id": "bc953e9706b6_extract_extracted_text.txt",
+    "display_name": "extract_extracted_text.txt",
+    "operation": "extract_text",
+    "page_count": 0,
+    "file_size": 346,
+    "created_at": 1791811464.0356154,
+    "expires_at": 1791897864.0356154,
+    "is_zip": false,
+    "is_text": true
+  },
+  "0836c6fc8a9e_merged_cli.pdf": {
+    "file_id": "0836c6fc8a9e_merged_cli.pdf",
+    "display_name": "merged_cli.pdf",
+    "operation": "merge",
+    "page_count": 4,
+    "file_size": 2692,
+    "created_at": 1791811553.5491767,
+    "expires_at": 1791897953.5491767,
+    "is_zip": false
+  },
+  "a3b9920fd3a4_1_sample_3pages_page_1.pdf": {
+    "file_id": "a3b9920fd3a4_1_sample_3pages_page_1.pdf",
+    "display_name": "sample_3pages_page_1.pdf",
+    "operation": "split",
+    "page_count": 1,
+    "file_size": 1006,
+    "created_at": 1791811553.5621488,
+    "expires_at": 1791897953.5621488,
+    "is_zip": false
+  },
+  "a3b9920fd3a4_2_sample_3pages_page_2.pdf": {
+    "file_id": "a3b9920fd3a4_2_sample_3pages_page_2.pdf",
+    "display_name": "sample_3pages_page_2.pdf",
+    "operation": "split",
+    "page_count": 1,
+    "file_size": 1006,
+    "created_at": 1791811553.5661454,
+    "expires_at": 1791897953.5661454,
+    "is_zip": false
+  },
+  "a3b9920fd3a4_3_sample_3pages_page_3.pdf": {
+    "file_id": "a3b9920fd3a4_3_sample_3pages_page_3.pdf",
+    "display_name": "sample_3pages_page_3.pdf",
+    "operation": "split",
+    "page_count": 1,
+    "file_size": 1007,
+    "created_at": 1791811553.5699387,
+    "expires_at": 1791897953.5699387,
+    "is_zip": false
+  },
+  "a3b9920fd3a4_sample_3pages_split_pages.zip": {
+    "file_id": "a3b9920fd3a4_sample_3pages_split_pages.zip",
+    "display_name": "sample_3pages_split_pages.zip",
+    "operation": "split",
+    "page_count": 3,
+    "file_size": 2287,
+    "created_at": 1791811553.5733123,
+    "expires_at": 1791897953.5733123,
+    "is_zip": true
+  },
+  "7ac9111c4c0d_rotated_cli.pdf": {
+    "file_id": "7ac9111c4c0d_rotated_cli.pdf",
+    "display_name": "rotated_cli.pdf",
+    "operation": "rotate",
+    "page_count": 3,
+    "file_size": 2051,
+    "created_at": 1791811553.589347,
+    "expires_at": 1791897953.589347,
+    "is_zip": false
+  },
+  "66af3a45c196_watermark_cli.pdf": {
+    "file_id": "66af3a45c196_watermark_cli.pdf",
+    "display_name": "watermark_cli.pdf",
+    "operation": "watermark",
+    "page_count": 3,
+    "file_size": 3866,
+    "created_at": 1791811553.6070914,
+    "expires_at": 1791897953.6070914,
+    "is_zip": false
+  },
+  "c92a3ee8f897_sanitized_cli.pdf": {
+    "file_id": "c92a3ee8f897_sanitized_cli.pdf",
+    "display_name": "sanitized_cli.pdf",
+    "operation": "sanitize_metadata",
+    "page_count": 3,
+    "file_size": 2130,
+    "created_at": 1791811553.6338315,
+    "expires_at": 1791897953.6338315,
+    "is_zip": false
+  }
+}

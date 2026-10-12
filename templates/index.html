@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ app_name }} — Your Complete PDF Workflow Toolkit</title>
+  <meta name="description" content="Secure, accurate, and non-destructive PDF manipulation toolkit. Merge, split, rotate, watermark, inspect, sanitize metadata, extract text, and validate PDF documents locally.">
+  <meta name="author" content="Harsh Patel">
+  <meta name="theme-color" content="#2563eb">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+
+  <!-- FOUT Prevention: Apply saved or system theme immediately -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('pdf_toolkit_theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" role="banner">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-brand" aria-label="PDF Utility Toolkit Home">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="brand-logo-img">
+        <span class="brand-text">PDF Toolkit<span class="brand-badge">Intermediate</span></span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#workspace" class="nav-link">Workspace</a></li>
+          <li><a href="#tools" class="nav-link">Tools</a></li>
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="#about" class="nav-link">About Us</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Capsule Theme Toggle -->
+        <button type="button" class="theme-toggle-capsule" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark and light theme">
+          <div class="theme-toggle-icons">
+            <svg class="toggle-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="toggle-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </div>
+          <div class="theme-toggle-slider"></div>
+        </button>
+
+        <a href="#workspace" class="btn btn-primary btn-sm">Launch Tool</a>
+
+        <!-- Mobile Menu Toggle -->
+        <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+    <!-- Hero Section -->
+    <section class="hero-section text-center" id="hero">
+      <div class="container">
+        <div class="hero-pill-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Production-Grade Document Automation Engine</span>
+        </div>
+
+        <h1 class="hero-title">
+          Your Complete <span class="hero-title-accent">PDF Workflow</span> Toolkit
+        </h1>
+
+        <p class="hero-subtitle">
+          Automate office document workflows through secure, accurate, and non-destructive PDF manipulation.
+          Backed by a real Python processing engine with zero mock results or third-party cloud leaks.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#workspace" class="btn btn-primary btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+            Open Processing Workspace
+          </a>
+          <a href="#tools" class="btn btn-secondary btn-lg">Explore 8 Core Tools</a>
+        </div>
+
+        <div class="hero-highlights">
+          <div class="hero-highlight-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Non-Destructive Page Manipulation</span>
+          </div>
+          <div class="hero-highlight-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Vector & Image Watermarks</span>
+          </div>
+          <div class="hero-highlight-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Metadata Privacy Sanitizer</span>
+          </div>
+          <div class="hero-highlight-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Click CLI & REST API Parity</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Operation Selector Section -->
+    <section class="operations-section" id="tools">
+      <div class="container text-center">
+        <div class="section-header">
+          <span class="section-tag">Core Modules</span>
+          <h2 class="section-title">Select an Operation</h2>
+          <p class="section-description">
+            Choose from eight genuine PDF manipulation tools. Each operation uses shared, validated Python services.
+          </p>
+        </div>
+
+        <div class="tools-grid">
+          <!-- Tool 1: Merge -->
+          <div class="tool-card active" data-tool="merge" role="button" tabindex="0">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </div>
+            <h3 class="tool-card-title">Merge PDF</h3>
+            <p class="tool-card-desc">Combine 2+ documents in custom order. Preserves source inputs and tracks total page counts.</p>
+            <div class="tool-card-footer">
+              <span class="tool-card-badge">Multi-file</span>
+              <span class="tool-card-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Tool 2: Split -->
+          <div class="tool-card" data-tool="split" role="button" tabindex="0">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+            </div>
+            <h3 class="tool-card-title">Split PDF</h3>
+            <p class="tool-card-desc">Split into single pages or custom ranges (e.g. 1-3,5,8-10). Export individually or as ZIP.</p>
+            <div class="tool-card-footer">
+              <span class="tool-card-badge">Ranges</span>
+              <span class="tool-card-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Tool 3: Rotate -->
+          <div class="tool-card" data-tool="rotate" role="button" tabindex="0">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            </div>
+            <h3 class="tool-card-title">Rotate PDF</h3>
+            <p class="tool-card-desc">Rotate pages by 90°, 180°, or 270° clockwise. Non-destructive text preservation without rasterization.</p>
+            <div class="tool-card-footer">
+              <span class="tool-card-badge">Vector</span>
+              <span class="tool-card-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Tool 4: Watermark -->
+          <div class="tool-card" data-tool="watermark" role="button" tabindex="0">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+            </div>
+            <h3 class="tool-card-title">Watermark PDF</h3>
+            <p class="tool-card-desc">Apply text or branded image overlays with live preview, custom opacity, angles, and placements.</p>
+            <div class="tool-card-footer">
+              <span class="tool-card-badge">Text / Image</span>
+              <span class="tool-card-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Tool 5: Info -->
+          <div class="tool-card" data-tool="info" role="button" tabindex="0">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </div>
+            <h3 class="tool-card-title">PDF Information</h3>
+            <p class="tool-card-desc">Detailed metrics: page dimensions, orientation, encryption status, metadata, and text statistics.</p>
+            <div class="tool-card-footer">
+              <span class="tool-card-badge">Inspection</span>
+              <span class="tool-card-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Tool 6: Metadata Sanitizer -->
+          <div class="tool-card" data-tool="sanitize_metadata" role="button" tabindex="0">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+            </div>
+            <h3 class="tool-card-title">Metadata Sanitizer</h3>
+            <p class="tool-card-desc">Strip or edit Title, Author, Subject, Producer, and Keywords. View transparent change diffs.</p>
+            <div class="tool-card-footer">
+              <span class="tool-card-badge">Privacy</span>
+              <span class="tool-card-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Tool 7: Text Extractor -->
+          <div class="tool-card" data-tool="extract_text" role="button" tabindex="0">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+            </div>
+            <h3 class="tool-card-title">Text Extractor</h3>
+            <p class="tool-card-desc">Extract text using pdfplumber with word counts, copy-to-clipboard, and clean .txt download.</p>
+            <div class="tool-card-footer">
+              <span class="tool-card-badge">pdfplumber</span>
+              <span class="tool-card-arrow">→</span>
+            </div>
+          </div>
+
+          <!-- Tool 8: Validator -->
+          <div class="tool-card" data-tool="validate" role="button" tabindex="0">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <h3 class="tool-card-title">PDF Validator</h3>
+            <p class="tool-card-desc">Verify %PDF magic header, EOF trailer, xref structure, catalog, and readable page streams.</p>
+            <div class="tool-card-footer">
+              <span class="tool-card-badge">Integrity</span>
+              <span class="tool-card-arrow">→</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Processing Workspace -->
+        <div class="workspace-wrapper text-left" id="workspace">
+          <div class="workspace-header">
+            <div class="active-tool-display">
+              <div class="active-tool-icon" id="activeToolIcon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              </div>
+              <div>
+                <h3 class="active-tool-name" id="activeToolName">Merge PDF</h3>
+                <p class="active-tool-subtitle" id="activeToolDesc">Combine two or more PDF documents into a single file with custom ordering.</p>
+              </div>
+            </div>
+            <div>
+              <span class="file-badge-pill">Local Python Engine</span>
+            </div>
+          </div>
+
+          <!-- Drag & Drop Zone -->
+          <div class="dropzone-container">
+            <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Drop files here or click to browse">
+              <div class="dropzone-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              </div>
+              <h4 class="dropzone-title">Click to upload or drag & drop documents</h4>
+              <p class="dropzone-subtitle">Select files from your device. Supported formats: .PDF (and .PNG/.JPG for image watermarks).</p>
+              <div class="dropzone-limits">
+                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Max upload size: {{ max_upload_mb }} MB</span>
+                <span>•</span>
+                <span>Max pages: {{ max_pages }}</span>
+              </div>
+              <input type="file" id="fileInput" class="visually-hidden" accept=".pdf" multiple>
+            </div>
+          </div>
+
+          <!-- Selected Files Tray -->
+          <div class="file-list-container" id="fileListContainer" style="display: none;">
+            <div class="file-list-header">
+              <span class="file-list-title">Selected Documents</span>
+              <button type="button" class="btn btn-ghost btn-sm" id="clearFilesBtn" style="color: var(--danger-base);">Clear All</button>
+            </div>
+            <div class="file-cards-grid" id="fileCardsGrid"></div>
+          </div>
+
+          <!-- Password Option (Applies across all tools if file encrypted) -->
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label for="docPassword" class="form-label">
+              Document Password (Optional)
+              <span class="form-label-desc">Required only if your PDF is password protected. Passwords are never logged or stored.</span>
+            </label>
+            <input type="password" id="docPassword" class="form-input" placeholder="Enter password if encrypted" autocomplete="off" style="max-width: 320px;">
+          </div>
+
+          <!-- Dynamic Tool Configuration Panels -->
+
+          <!-- Config: Merge -->
+          <div class="config-panel" id="config-merge">
+            <h4 class="config-panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              Merge Configuration
+            </h4>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Upload at least two PDF documents. You can use the Move Up and Move Down arrows in the document list above to adjust the merging order.
+            </p>
+          </div>
+
+          <!-- Config: Split -->
+          <div class="config-panel" id="config-split" style="display: none;">
+            <h4 class="config-panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line></svg>
+              Split Options
+            </h4>
+            <div class="form-group">
+              <label class="form-label">Splitting Mode</label>
+              <div class="radio-card-group">
+                <label class="radio-card active">
+                  <input type="radio" name="splitMode" value="all_pages" checked>
+                  <span class="radio-card-label">All Pages</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">1 PDF per page (ZIP)</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="splitMode" value="custom_ranges">
+                  <span class="radio-card-label">Custom Ranges</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Separate files per range</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="splitMode" value="extract_selection">
+                  <span class="radio-card-label">Extract Selection</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Combine into 1 PDF</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" id="splitRangeGroup">
+              <label for="splitRangeExpr" class="form-label">
+                Page Range Expression
+                <span class="form-label-desc">1-based page indices. Example: <code>1-3, 5, 8-10</code></span>
+              </label>
+              <input type="text" id="splitRangeExpr" class="form-input" placeholder="e.g. 1-2, 4, 6-8">
+            </div>
+
+            <div class="form-group">
+              <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; cursor: pointer;">
+                <input type="checkbox" id="splitMergeRanges" style="width: 16px; height: 16px;">
+                <span>Merge extracted ranges into a single continuous PDF document</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Config: Rotate -->
+          <div class="config-panel" id="config-rotate" style="display: none;">
+            <h4 class="config-panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              Rotation Settings
+            </h4>
+            <div class="form-group">
+              <label class="form-label">Clockwise Angle</label>
+              <div class="radio-card-group">
+                <label class="radio-card active">
+                  <input type="radio" name="rotateAngle" value="90" checked>
+                  <span class="radio-card-label">90° Clockwise</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="rotateAngle" value="180">
+                  <span class="radio-card-label">180° Flip</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="rotateAngle" value="270">
+                  <span class="radio-card-label">270° Counter-CW</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Scope</label>
+              <div class="radio-card-group">
+                <label class="radio-card active">
+                  <input type="radio" name="rotateScope" value="all" checked>
+                  <span class="radio-card-label">All Pages</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="rotateScope" value="selected">
+                  <span class="radio-card-label">Specific Pages</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" id="rotateRangeGroup">
+              <label for="rotateRangeExpr" class="form-label">Page Selection Expression</label>
+              <input type="text" id="rotateRangeExpr" class="form-input" placeholder="e.g. 1, 3, 5-7">
+            </div>
+          </div>
+
+          <!-- Config: Watermark -->
+          <div class="config-panel" id="config-watermark" style="display: none;">
+            <h4 class="config-panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+              Watermark Designer & Live Preview
+            </h4>
+
+            <div class="form-group">
+              <label class="form-label">Watermark Type</label>
+              <div class="radio-card-group">
+                <label class="radio-card active">
+                  <input type="radio" name="watermarkType" value="text" checked>
+                  <span class="radio-card-label">Vector Text</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="watermarkType" value="image">
+                  <span class="radio-card-label">Image Logo</span>
+                </label>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start;">
+              <!-- Left: Controls -->
+              <div>
+                <div id="wmTextOptions">
+                  <div class="form-group">
+                    <label for="wmText" class="form-label">Watermark Text</label>
+                    <input type="text" id="wmText" class="form-input" value="CONFIDENTIAL" maxlength="60">
+                  </div>
+
+                  <div class="form-grid-3">
+                    <div class="form-group">
+                      <label for="wmColor" class="form-label">Color</label>
+                      <input type="color" id="wmColor" class="form-input" value="#2563eb" style="height: 42px; padding: 4px;">
+                    </div>
+                    <div class="form-group">
+                      <label for="wmFontSize" class="form-label">Font Size</label>
+                      <input type="number" id="wmFontSize" class="form-input" value="48" min="12" max="120">
+                    </div>
+                    <div class="form-group">
+                      <label for="wmPlacement" class="form-label">Placement</label>
+                      <select id="wmPlacement" class="form-select">
+                        <option value="center" selected>Center</option>
+                        <option value="diagonal">Diagonal</option>
+                        <option value="top_left">Top-Left</option>
+                        <option value="top_right">Top-Right</option>
+                        <option value="bottom_left">Bottom-Left</option>
+                        <option value="bottom_right">Bottom-Right</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-grid-2">
+                    <div class="form-group">
+                      <label for="wmOpacity" class="form-label">Opacity (<span id="wmOpacityVal">25%</span>)</label>
+                      <input type="range" id="wmOpacity" min="0.05" max="1.0" step="0.05" value="0.25" style="width: 100%;">
+                    </div>
+                    <div class="form-group">
+                      <label for="wmRotation" class="form-label">Rotation Angle (<span id="wmRotationVal">45°</span>)</label>
+                      <input type="range" id="wmRotation" min="-90" max="90" step="5" value="45" style="width: 100%;">
+                    </div>
+                  </div>
+                </div>
+
+                <div id="wmImageOptions" style="display: none;">
+                  <div class="form-group">
+                    <label for="wmImageInput" class="form-label">Watermark Image (PNG/JPG)</label>
+                    <input type="file" id="wmImageInput" class="form-input" accept=".png,.jpg,.jpeg">
+                  </div>
+                  <div class="form-group">
+                    <label for="wmImageScale" class="form-label">Image Scale (% of page width)</label>
+                    <input type="number" id="wmImageScale" class="form-input" value="50" min="10" max="95">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Target Scope</label>
+                  <div class="radio-card-group">
+                    <label class="radio-card active">
+                      <input type="radio" name="wmScope" value="all" checked>
+                      <span class="radio-card-label">All Pages</span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="wmScope" value="selected">
+                      <span class="radio-card-label">Page Range</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" id="wmRangeExpr" class="form-input" placeholder="e.g. 1, 3-5">
+                </div>
+              </div>
+
+              <!-- Right: Live Canvas Preview -->
+              <div class="watermark-preview-box text-center">
+                <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;">
+                  Interactive Preview
+                </span>
+                <div class="watermark-canvas-sheet" id="watermarkCanvasSheet">
+                  <div class="watermark-mock-lines">
+                    <div class="mock-line"></div>
+                    <div class="mock-line short"></div>
+                    <div class="mock-line"></div>
+                    <div class="mock-line"></div>
+                    <div class="mock-line short"></div>
+                    <div class="mock-line"></div>
+                    <div class="mock-line"></div>
+                  </div>
+                  <div class="watermark-overlay-element" id="wmCanvasText">CONFIDENTIAL</div>
+                </div>
+                <span style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem;">
+                  *Actual output renders vector fonts via ReportLab
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Config: Info -->
+          <div class="config-panel" id="config-info" style="display: none;">
+            <h4 class="config-panel-title">Document Inspection Mode</h4>
+            <p style="font-size: 0.875rem; color: var(--text-muted);">
+              Select a PDF document and click "Inspect Document". The system will perform deep structural analysis,
+              measuring every page dimension, checking encryption status, analyzing text density, and discovering metadata properties.
+            </p>
+          </div>
+
+          <!-- Config: Metadata Sanitizer -->
+          <div class="config-panel" id="config-sanitize_metadata" style="display: none;">
+            <h4 class="config-panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+              Metadata Sanitization Options
+            </h4>
+
+            <div class="form-group">
+              <label class="form-label">Sanitization Action</label>
+              <div class="radio-card-group">
+                <label class="radio-card active">
+                  <input type="radio" name="metaAction" value="strip_all" checked>
+                  <span class="radio-card-label">Strip All Metadata</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Clears Title, Author, etc.</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="metaAction" value="update">
+                  <span class="radio-card-label">Custom Replacement</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Specify custom fields</span>
+                </label>
+              </div>
+            </div>
+
+            <div id="metaCustomFieldsGroup" style="display: none;">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="metaTitle" class="form-label">Title</label>
+                  <input type="text" id="metaTitle" class="form-input" placeholder="Custom document title">
+                </div>
+                <div class="form-group">
+                  <label for="metaAuthor" class="form-label">Author</label>
+                  <input type="text" id="metaAuthor" class="form-input" placeholder="Custom author name">
+                </div>
+                <div class="form-group">
+                  <label for="metaSubject" class="form-label">Subject</label>
+                  <input type="text" id="metaSubject" class="form-input" placeholder="Custom subject">
+                </div>
+                <div class="form-group">
+                  <label for="metaKeywords" class="form-label">Keywords</label>
+                  <input type="text" id="metaKeywords" class="form-input" placeholder="e.g. report, annual, internal">
+                </div>
+              </div>
+            </div>
+
+            <div style="padding: 1rem; background: var(--warning-bg); border: 1px solid var(--warning-border); border-radius: 8px; color: var(--warning-text); font-size: 0.8rem; margin-top: 1rem;">
+              <strong>DISCLAIMER:</strong> Metadata sanitization removes standard document properties (Author, Creator, Title, ModDate).
+              It does NOT constitute full forensic sanitization; digital signatures may be invalidated, and content text, annotations, or form fields are preserved.
+            </div>
+          </div>
+
+          <!-- Config: Extract Text -->
+          <div class="config-panel" id="config-extract_text" style="display: none;">
+            <h4 class="config-panel-title">Text Extraction Settings</h4>
+            <div class="form-group">
+              <label class="form-label">Scope</label>
+              <div class="radio-card-group">
+                <label class="radio-card active">
+                  <input type="radio" name="extractScope" value="all" checked>
+                  <span class="radio-card-label">All Pages</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="extractScope" value="selected">
+                  <span class="radio-card-label">Page Range</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" id="extractRangeExpr" class="form-input" placeholder="e.g. 1-4, 7">
+            </div>
+          </div>
+
+          <!-- Config: Validate -->
+          <div class="config-panel" id="config-validate" style="display: none;">
+            <h4 class="config-panel-title">PDF Conformance & Parseability Check</h4>
+            <p style="font-size: 0.875rem; color: var(--text-muted);">
+              Performs multi-stage structural validation: checks %PDF magic bytes, EOF trailer, encryption decipherability,
+              object cross-reference integrity, and samples page content streams.
+            </p>
+          </div>
+
+          <!-- Real Progress Panel -->
+          <div class="progress-panel" id="progressPanel">
+            <div class="progress-header">
+              <span class="progress-stage-title" id="progressStageTitle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                Processing document...
+              </span>
+              <span class="progress-percentage" id="progressPercent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-stages-stepper">
+              <span class="step-item" id="step-upload">1. Uploading</span>
+              <span class="step-item" id="step-validate">2. Validating</span>
+              <span class="step-item" id="step-process">3. Processing</span>
+              <span class="step-item" id="step-verify">4. Verifying</span>
+            </div>
+          </div>
+
+          <!-- Primary Action Button -->
+          <div style="margin-top: 1.5rem;">
+            <button type="button" class="btn btn-primary btn-lg" id="processBtn" disabled>
+              <span id="processBtnText">Merge Documents</span>
+            </button>
+          </div>
+
+          <!-- Result Panel -->
+          <div class="result-panel" id="resultPanel" style="margin-top: 2rem;"></div>
+        </div>
+
+        <!-- Processed Files / Session Downloads -->
+        <div class="history-section text-left" id="history">
+          <div class="section-header" style="margin-bottom: 1.25rem;">
+            <span class="section-tag">Output History</span>
+            <h3 style="font-size: 1.5rem; font-weight: 700;">Generated Assets</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+              Completed operations from your session. Files are stored locally and expire automatically after 24 hours.
+            </p>
+          </div>
+
+          <div class="history-table-wrapper">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Filename</th>
+                  <th>Operation</th>
+                  <th>Size</th>
+                  <th>Pages</th>
+                  <th>Created</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody"></tbody>
+            </table>
+            <div class="empty-state" id="historyEmptyState">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+              <p>No processed documents generated yet. Select an operation above to get started.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Architecture & Precision</span>
+          <h2 class="section-title">Built for Accurate Document Processing</h2>
+          <p class="section-description">
+            Engineered with strict security standards, non-destructive workflows, and zero cloud API dependencies.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 class="feature-title">Non-Destructive Operations</h3>
+            <p class="feature-desc">Source files are never overwritten. Operations modify transformation matrices and object streams, preserving selectable text and vector fidelity.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+            </div>
+            <h3 class="feature-title">Vector-Level Watermarking</h3>
+            <p class="feature-desc">Text watermarks are rendered vectorially via ReportLab with alpha channels. They dynamically scale to mixed page sizes and landscape orientations.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            </div>
+            <h3 class="feature-title">CLI & Web Parity</h3>
+            <p class="feature-desc">Full Click command-line interface sharing the identical Python service layer. Automate office pipelines from scripts or terminal with full exit code support.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <h3 class="feature-title">Strict Conformance Checks</h3>
+            <p class="feature-desc">Validates PDF magic bytes, verifies structural catalog nodes, inspects page cross-references, and detects damaged or malformed streams before processing.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3 class="feature-title">Privacy-First Architecture</h3>
+            <p class="feature-desc">All processing executes entirely within the local Python runtime. No external third-party APIs, telemetry trackers, or AI data ingestion pipelines.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+            </div>
+            <h3 class="feature-title">Lifecycle & Expiration</h3>
+            <p class="feature-desc">Temporary files are segregated into isolated directories per job, written atomically, and purged after 24 hours to prevent storage exhaustion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="steps-section" id="how-it-works">
+      <div class="container text-center">
+        <div class="section-header">
+          <span class="section-tag">Processing Flow</span>
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-description">
+            A transparent four-step pipeline ensuring document safety and verified results.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3 class="step-title">Select Document</h3>
+            <p class="step-desc">Drag & drop your PDF into the workspace. The client checks file integrity and limits before transmission.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3 class="step-title">Configure Options</h3>
+            <p class="step-desc">Select angles, range syntax (e.g. 1-3,5), watermarks with live visual preview, or metadata modifications.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3 class="step-title">Python Engine</h3>
+            <p class="step-desc">The backend applies non-destructive manipulations using pypdf, pdfplumber, and ReportLab.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3 class="step-title">Verify & Download</h3>
+            <p class="step-desc">The resulting output is reopened, verified for structural stability, and made available for instant download.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Architecture Section -->
+    <section class="arch-section" id="architecture">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Engineering Stack</span>
+          <h2 class="section-title">Technical Architecture</h2>
+          <p class="section-description">
+            Built strictly with Python, HTML5, CSS3, and vanilla JavaScript for maximum performance and zero dependency overhead.
+          </p>
+        </div>
+
+        <div class="arch-cards-grid">
+          <div class="arch-card">
+            <div class="arch-card-header">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-600);"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              <h3 class="arch-card-title">Backend API & CLI</h3>
+            </div>
+            <ul class="arch-tech-list">
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Flask 3.x REST Web Server</span></li>
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Click Command-Line Interface</span></li>
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Shared Service Layer & Exceptions</span></li>
+            </ul>
+          </div>
+
+          <div class="arch-card">
+            <div class="arch-card-header">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-600);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              <h3 class="arch-card-title">PDF Core Engines</h3>
+            </div>
+            <ul class="arch-tech-list">
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>pypdf 6.x for Merging, Splitting & Rotating</span></li>
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>pdfplumber for Text & Structural Extraction</span></li>
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>ReportLab & Pillow for Vector Watermarking</span></li>
+            </ul>
+          </div>
+
+          <div class="arch-card">
+            <div class="arch-card-header">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-600);"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <h3 class="arch-card-title">Security & Storage</h3>
+            </div>
+            <ul class="arch-tech-list">
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Path Traversal & Filename Sanitization</span></li>
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Atomic Temporary Writes & Verification</span></li>
+              <li class="arch-tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Automatic 24-Hour Expiration Retention</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-section" id="about">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Project Overview</span>
+          <h2 class="section-title">About PDF Utility Toolkit</h2>
+          <p class="section-description">
+            Dedicated to privacy-conscious document processing and reliable workflow automation.
+          </p>
+        </div>
+
+        <div class="about-content-card">
+          <p class="about-text">
+            <strong>PDF Utility Toolkit — Intermediate</strong> was designed to automate common office document workflows through secure, accurate, and non-destructive PDF manipulation. Working with PDF documents frequently requires combining multiple source files, extracting specific page subsets, re-orienting landscape diagrams, protecting assets with watermarks, inspecting internal metadata, and sanitizing identifying attributes before distribution.
+          </p>
+          <p class="about-text">
+            Unlike commercial online utilities that silently upload confidential corporate or personal documents to third-party cloud servers, PDF Utility Toolkit executes all operations within your own local Python environment. Original documents are treated as read-only inputs, and every output is atomically constructed and verified before delivery.
+          </p>
+          <p class="about-text">
+            The platform is built for software engineers, office workers, students, legal professionals, and system administrators who value complete privacy, verifiable operations, and full parity between browser-based interfaces and command-line execution.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Got Questions?</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-description">
+            Clear, transparent answers explaining supported capabilities and technical boundaries.
+          </p>
+        </div>
+
+        <div class="faq-container">
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>What PDF operations are supported in this toolkit?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              The toolkit provides eight core operations: Merging multiple documents, Splitting by individual pages or custom ranges, Rotating pages by 90°, 180°, or 270°, applying vector text or image Watermarks, deep structural Information inspection, Metadata sanitization, Text extraction via pdfplumber, and PDF validation.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>How does page range syntax work for splitting?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              The splitter uses standard 1-based page numbering. You can specify single pages, hyphenated intervals, or comma-separated lists such as <code>1-3, 5, 8-10</code>. If you check "Merge extracted ranges", all selected pages are combined into a single continuous PDF; otherwise, separate files are produced and packaged into a ZIP download.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Does rotation rasterize pages or degrade text quality?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              No. Page rotation modifies the PDF page's rotation attributes without converting vector text or line art into bitmap pixels. The resulting document retains fully selectable text, vector sharpness, and searchable content.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Is metadata removal equivalent to forensic redaction?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              No. Metadata sanitization removes standard document properties (Title, Author, Subject, Creator, Producer, Keywords). It does not sanitize visible page text, annotations, embedded file attachments, form data, revision history, or digital signatures. We advise against relying solely on metadata stripping for forensic sanitization.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Can this toolkit extract text from scanned documents?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              The Text Extractor uses pdfplumber to extract selectable text character streams. For scanned or image-only PDFs, it transparently detects that no characters exist and reports that an OCR engine is required. We never generate fabricated text.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>How are password-protected PDFs handled?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              If an uploaded document is encrypted, you can provide the password in the optional password field. The password is used strictly in memory to decrypt the file stream and is never saved, logged, or exposed in URLs or client storage.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>How long are uploaded and processed files kept?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              Files are saved in temporary storage directories and tracked in a local manifest. An automated cleanup routine purges files older than 24 hours. You can also permanently delete any generated file at any time using the trash icon in the Generated Assets table.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Can I use the Click CLI for automated terminal scripts?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              Yes. The toolkit includes a complete CLI: <code>python -m pdf_toolkit.cli --help</code>. Subcommands include <code>merge</code>, <code>split</code>, <code>rotate</code>, <code>watermark</code>, <code>info</code>, <code>sanitize-metadata</code>, <code>extract-text</code>, and <code>validate</code>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Professional Footer -->
+  <footer class="app-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="#hero" class="nav-brand" style="margin-bottom: 0.75rem;">
+            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="brand-logo-img">
+            <span class="brand-text">PDF Utility Toolkit</span>
+          </a>
+          <p class="footer-brand-desc">
+            Production-ready, non-destructive PDF manipulation engine with web and CLI interfaces. Built with Python, HTML, CSS, and vanilla JavaScript.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">PDF Operations</h4>
+          <ul class="footer-links-list">
+            <li><a href="#workspace" onclick="selectTool('merge')">Merge Documents</a></li>
+            <li><a href="#workspace" onclick="selectTool('split')">Split & Page Ranges</a></li>
+            <li><a href="#workspace" onclick="selectTool('rotate')">Rotate Pages</a></li>
+            <li><a href="#workspace" onclick="selectTool('watermark')">Vector Watermarking</a></li>
+            <li><a href="#workspace" onclick="selectTool('extract_text')">Text Extraction</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Security & Data</h4>
+          <ul class="footer-links-list">
+            <li><a href="#workspace" onclick="selectTool('info')">Document Inspection</a></li>
+            <li><a href="#workspace" onclick="selectTool('sanitize_metadata')">Metadata Sanitizer</a></li>
+            <li><a href="#workspace" onclick="selectTool('validate')">Structural Validator</a></li>
+            <li><a href="#about">Privacy Model</a></li>
+            <li><a href="#history">Asset Retention</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Toolkit Info</h4>
+          <ul class="footer-links-list">
+            <li><a href="#architecture">Architecture Stack</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#about">About the Engine</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">Copyright Reserved. Made by Harsh Patel.</p>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">
+          Core: Authored a CLI PDF manipulation toolkit executing non-destructive page transformations, merges, and watermarking, extended with a responsive web interface.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- JavaScript Engine -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
