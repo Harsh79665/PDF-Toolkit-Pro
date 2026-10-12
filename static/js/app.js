@@ -1,5 +1,5 @@
 /**
- * PDF Utility Toolkit — Intermediate
+ * PDF Utility Toolkit Pro
  * Vanilla JavaScript Frontend Engine
  * Manages theme, file handling, drag-and-drop, real progress states, live previews, and API calls.
  */
@@ -44,6 +44,7 @@
     // Watermark specific
     wmTextInput: document.getElementById("wmText"),
     wmColorInput: document.getElementById("wmColor"),
+    wmFontSizeInput: document.getElementById("wmFontSize"),
     wmOpacityInput: document.getElementById("wmOpacity"),
     wmOpacityVal: document.getElementById("wmOpacityVal"),
     wmRotationInput: document.getElementById("wmRotation"),
@@ -177,16 +178,22 @@
     state.activeTool = toolKey;
     const meta = toolMetadata[toolKey];
 
-    // Update tool cards UI
+    // Update tool cards UI and grab real SVG icon
+    let activeCardIconHtml = "";
     dom.toolCards.forEach((card) => {
       if (card.dataset.tool === toolKey) {
         card.classList.add("active");
+        const iconWrap = card.querySelector(".tool-card-icon");
+        if (iconWrap) activeCardIconHtml = iconWrap.innerHTML;
       } else {
         card.classList.remove("active");
       }
     });
 
-    // Update workspace header
+    // Update workspace header with matching real SVG icon and titles
+    if (dom.activeToolIcon && activeCardIconHtml) {
+      dom.activeToolIcon.innerHTML = activeCardIconHtml;
+    }
     if (dom.activeToolName) dom.activeToolName.textContent = meta.name;
     if (dom.activeToolDesc) dom.activeToolDesc.textContent = meta.desc;
     if (dom.processBtnText) dom.processBtnText.textContent = meta.btnLabel;
@@ -198,6 +205,12 @@
       } else {
         dom.fileInput.removeAttribute("multiple");
       }
+    }
+
+    // Preserve first file if switching from multi-file tool to single-file tool
+    if (!meta.multiple && state.selectedFiles.length > 1) {
+      state.selectedFiles = state.selectedFiles.slice(0, 1);
+      renderFileList();
     }
 
     // Show appropriate contextual config panel
@@ -212,7 +225,7 @@
     // Update Process button state
     updateProcessButtonState();
 
-    // Scroll smoothly to workspace
+    // Scroll smoothly to workspace on small screens
     const workspace = document.getElementById("workspace");
     if (workspace && window.innerWidth < 768) {
       workspace.scrollIntoView({ behavior: "smooth" });
@@ -228,6 +241,18 @@
 
     dom.dropzone.addEventListener("click", () => dom.fileInput.click());
 
+    // Prevent default window drag events so accidental drops don't open files in browser tabs
+    window.addEventListener("dragover", (e) => e.preventDefault(), false);
+    window.addEventListener("drop", (e) => e.preventDefault(), false);
+
+    let dragCounter = 0;
+
+    dom.dropzone.addEventListener("dragenter", (e) => {
+      e.preventDefault();
+      dragCounter++;
+      dom.dropzone.classList.add("drag-active");
+    });
+
     dom.dropzone.addEventListener("dragover", (e) => {
       e.preventDefault();
       dom.dropzone.classList.add("drag-active");
@@ -235,11 +260,16 @@
 
     dom.dropzone.addEventListener("dragleave", (e) => {
       e.preventDefault();
-      dom.dropzone.classList.remove("drag-active");
+      dragCounter--;
+      if (dragCounter <= 0) {
+        dragCounter = 0;
+        dom.dropzone.classList.remove("drag-active");
+      }
     });
 
     dom.dropzone.addEventListener("drop", (e) => {
       e.preventDefault();
+      dragCounter = 0;
       dom.dropzone.classList.remove("drag-active");
       if (e.dataTransfer && e.dataTransfer.files) {
         handleFileSelection(Array.from(e.dataTransfer.files));
@@ -262,6 +292,7 @@
     }
   }
 
+
   function handleFileSelection(files) {
     const isMultiple = toolMetadata[state.activeTool]?.multiple;
 
@@ -272,8 +303,8 @@
         showToast("Invalid Format", `File "${f.name}" is not a PDF document.`, "warning");
         return false;
       }
-      if (f.size > 50 * 1024 * 1024) {
-        showToast("File Too Large", `File "${f.name}" exceeds the 50 MB limit.`, "warning");
+      if (f.size > 1024 * 1024 * 1024) {
+        showToast("File Too Large", `File "${f.name}" exceeds the 1 GB limit.`, "warning");
         return false;
       }
       return true;
@@ -437,6 +468,8 @@
       const opacity = dom.wmOpacityInput ? parseFloat(dom.wmOpacityInput.value) : 0.25;
       const rotation = dom.wmRotationInput ? parseInt(dom.wmRotationInput.value, 10) : 45;
       const placement = dom.wmPlacementSelect ? dom.wmPlacementSelect.value : "center";
+      const fontSize = dom.wmFontSizeInput ? parseInt(dom.wmFontSizeInput.value, 10) : 48;
+      const previewFontSize = Math.max(10, Math.min(32, Math.round(fontSize * 0.35)));
 
       if (dom.wmOpacityVal) dom.wmOpacityVal.textContent = `${Math.round(opacity * 100)}%`;
       if (dom.wmRotationVal) dom.wmRotationVal.textContent = `${rotation}°`;
@@ -444,6 +477,7 @@
       dom.wmCanvasText.textContent = text;
       dom.wmCanvasText.style.color = color;
       dom.wmCanvasText.style.opacity = opacity;
+      dom.wmCanvasText.style.fontSize = `${previewFontSize}px`;
 
       // Coordinate placement
       dom.wmCanvasText.style.top = "";
@@ -474,7 +508,7 @@
       }
     }
 
-    [dom.wmTextInput, dom.wmColorInput, dom.wmOpacityInput, dom.wmRotationInput, dom.wmPlacementSelect].forEach((el) => {
+    [dom.wmTextInput, dom.wmColorInput, dom.wmFontSizeInput, dom.wmOpacityInput, dom.wmRotationInput, dom.wmPlacementSelect].forEach((el) => {
       if (el) el.addEventListener("input", updatePreview);
     });
 
@@ -522,14 +556,32 @@
         } else if (groupName === "rotateScope") {
           const rotGroup = document.getElementById("rotateRangeGroup");
           if (rotGroup) rotGroup.style.display = e.target.value === "selected" ? "block" : "none";
+        } else if (groupName === "wmScope") {
+          const wmRangeGroup = document.getElementById("wmRangeGroup");
+          if (wmRangeGroup) wmRangeGroup.style.display = e.target.value === "selected" ? "block" : "none";
         } else if (groupName === "extractScope") {
-          const extInput = document.getElementById("extractRangeExpr");
-          if (extInput) extInput.closest(".form-group").style.display = e.target.value === "selected" ? "block" : "none";
+          const extRangeGroup = document.getElementById("extractRangeGroup");
+          if (extRangeGroup) extRangeGroup.style.display = e.target.value === "selected" ? "block" : "none";
         }
       });
     });
 
     updatePreview();
+  }
+
+  function initRangeChips() {
+    document.querySelectorAll(".range-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const targetId = chip.dataset.target;
+        const val = chip.dataset.val;
+        const input = document.getElementById(targetId);
+        if (input && val) {
+          input.value = val;
+          input.focus();
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      });
+    });
   }
 
   // =========================================================================
@@ -1084,6 +1136,7 @@
     initNavigation();
     initDropzone();
     initWatermarkControls();
+    initRangeChips();
     initFaq();
 
     // Attach tool card click listeners

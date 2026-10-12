@@ -1,125 +1,168 @@
-# PDF Utility Toolkit — Intermediate
+# PDF Utility Toolkit Pro
 
-> **“Authored a CLI PDF manipulation toolkit executing non-destructive page transformations, merges, and watermarking, extended with a responsive web interface built using Python, HTML, CSS, and vanilla JavaScript.”**
+<p align="center">
+  <img src="static/images/logo.svg" alt="PDF Utility Toolkit Pro Logo" width="80" height="80">
+</p>
 
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests: Pytest](https://img.shields.io/badge/tests-37%20passed-brightgreen.svg)](https://pytest.org/)
+<p align="center">
+  <strong>Production-Grade Document Automation Engine & Local Privacy Toolkit</strong>
+</p>
+
+<p align="center">
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-3776AB.svg?style=flat-square&logo=python&logoColor=white" alt="Python Version"></a>
+  <a href="https://pytest.org/"><img src="https://img.shields.io/badge/Tests-37%20Passed%20(100%25)-10B981.svg?style=flat-square&logo=pytest&logoColor=white" alt="Pytest Status"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-F59E0B.svg?style=flat-square" alt="MIT License"></a>
+  <a href="#security-privacy--integrity"><img src="https://img.shields.io/badge/Privacy-100%25%20Local%20Engine-2563EB.svg?style=flat-square&logo=shield" alt="Local Engine"></a>
+  <a href="#core-capabilities"><img src="https://img.shields.io/badge/Capacity-Up%20to%201%20GB-8B5CF6.svg?style=flat-square" alt="1GB Capacity"></a>
+</p>
 
 ---
 
-## Overview
+> **“Authored a CLI PDF manipulation toolkit executing non-destructive page transformations, merges, and watermarking, extended with a responsive web interface built using Python, HTML, CSS, and vanilla JavaScript.”**
 
-**PDF Utility Toolkit — Intermediate** is a production-ready, full-stack document processing application designed to automate office document workflows through secure, accurate, and non-destructive PDF manipulation. 
+---
 
-Backed by a high-performance Python engine, the toolkit provides both a modern SaaS browser interface and a Click-powered command-line interface (CLI) sharing the identical service layer. All processing occurs locally within the Python runtime with **zero external third-party cloud uploads or telemetry leaks**.
+## Executive Overview
 
-### Exact Copyright Ownership
-**“Copyright Reserved. Made by Harsh Patel.”**
+**PDF Utility Toolkit Pro** is an enterprise-grade document manipulation suite engineered to streamline office document workflows with absolute precision, speed, and privacy. Built strictly using **Python, HTML, CSS, and Vanilla JavaScript**, it delivers a unified dual-interface experience:
+
+1. **Modern SaaS Browser Interface**: Fully responsive, accessible, dark/light theme-ready workspace with zero external UI dependencies.
+2. **Click-Powered Command-Line Interface (CLI)**: High-performance automation tool for sysadmins, developers, and headless pipelines sharing the identical service layer.
+
+### Core Value Propositions
+* 🛡️ **Zero Third-Party Telemetry**: 100% local processing. No files, metadata, or metrics leave your host machine.
+* ⚡ **High Capacity (1 GB)**: Supports documents up to 1 GB in size with chunked streaming and atomic disk operations.
+* 🎯 **Non-Destructive Integrity**: Source files are never altered in place. All changes generate verified, standalone assets.
+* ⚖️ **Dual-Mode Parity**: Every command in the Web UI has an exact counterpart in the CLI tool.
+
+### Copyright Notice
+> **“Copyright Reserved. Made by Harsh Patel.”**
+
+---
+
+## Architecture & Technology Stack
+
+The toolkit strictly adheres to a native stack without bloated Node.js runtimes, TypeScript compilers, or external frontend frameworks.
+
+```mermaid
+graph TD
+    UI[Web UI: HTML5 + Vanilla CSS3 + Vanilla JS] -->|REST JSON + Streaming| Flask[Flask 3.x Application Server]
+    CLI[Click CLI: python -m pdf_toolkit.cli] -->|Direct Invocation| CoreService[PDFProcessorService Layer]
+    Flask --> CoreService
+    
+    subgraph Python Engine Services
+        CoreService --> Operations[Pure Operations: Merge / Split / Rotate / Watermark / Info / Sanitize / Extract / Validate]
+        CoreService --> Security[Security: Path Traversal Guard + Magic Bytes + Filename Sanitizer]
+        CoreService --> Storage[StorageManager: Atomic Writes + Manifest Tracking + 24h Retention Cleanup]
+    end
+    
+    Operations --> Engines[Engines: pypdf 6.x + pdfplumber 0.11.x + ReportLab 4.x + Pillow 10.x]
+```
+
+### Technology Breakdown
+* **Backend Runtime**: Python 3.9+ (Standard Library, Flask 3.x WSGI)
+* **PDF Processing Engines**: `pypdf` (structure & rotation), `pdfplumber` (character extraction), `ReportLab` (vector watermarks), `Pillow` (image watermarks)
+* **CLI Framework**: `Click` 8.x
+* **Quality Assurance**: `pytest` 8.x (37 unit, integration, and security tests)
+* **Frontend Architecture**:
+  * Semantic HTML5 with ARIA accessibility roles
+  * Custom Vanilla CSS3 Design System with CSS Custom Properties and hardware-accelerated transitions
+  * Capsule Dark / Light mode toggle with `localStorage` persistence and FOUT prevention
+  * Vanilla ES6+ JavaScript with zero third-party dependencies
 
 ---
 
 ## Core Capabilities & Implemented Tools
 
-1. **Merge PDF**: Combine two or more PDF documents with custom ordering (accessible Move Up / Move Down controls). Validates every input, prevents collisions, and tracks cumulative page counts.
-2. **Split PDF**: Split documents into individual single-page files, custom page ranges (e.g., `1-3, 5, 8-10`), or extract selected pages into a single combined document. Supports direct downloads and packaged ZIP archives.
-3. **Rotate PDF**: Rotate all or selected pages clockwise by 90°, 180°, or 270°. Non-destructive transformation preserving selectable text and vector shapes without rasterization.
-4. **Watermark PDF**: Apply high-fidelity vector text watermarks (ReportLab transparent overlay with custom font size, opacity, rotation angle, hex colors, and positions) or branded image watermarks (Pillow/PNG/JPG). Includes interactive live browser preview.
-5. **PDF Information**: Deep structural analysis reporting page count, page dimensions (points, inches, millimeters), rotations, encryption status, PDF version, metadata properties, and text density statistics via `pdfplumber`. Detects scanned/image-only documents transparently.
-6. **Metadata Sanitizer**: Strip all metadata or replace specific fields (Title, Author, Subject, Keywords). Provides detailed before/after diffs and transparent privacy warnings regarding digital signatures and visible page content.
-7. **PDF Text Extractor**: Extract selectable text character streams using `pdfplumber`. Includes instant in-browser viewer, word/character counts, copy-to-clipboard, and clean `.txt` asset download.
-8. **PDF Validator**: Multi-stage structural validation checking `%PDF` magic bytes, `%%EOF` trailer markers, catalog nodes, and cross-reference stream readability.
-9. **Processed Files & History**: Dedicated storage management tracking generated files, output sizes, page counts, creation timestamps, and automatic 24-hour expiration cleanup with manual deletion controls.
-10. **Command-Line Interface (CLI)**: Full Click CLI parity implementing `merge`, `split`, `rotate`, `watermark`, `info`, `sanitize-metadata`, `extract-text`, `validate`, and `version`.
+| Tool | Capability & Architecture | Web & CLI Parity |
+| :--- | :--- | :---: |
+| **1. Merge PDF** | Combines 2+ documents in user-defined ordering. Validates inputs, handles encrypted documents, and preserves vector fidelity. | `merge` |
+| **2. Split PDF** | Splits into individual pages or complex ranges (e.g. `1-3, 5, 8-10`). Generates individual files or ZIP packages. | `split` |
+| **3. Rotate PDF** | Rotates all or targeted pages clockwise by 90°, 180°, or 270° without rasterizing text or vectors. | `rotate` |
+| **4. Watermark PDF** | Overlays transparent vector text (ReportLab) or branded image logos (Pillow) with real-time canvas preview. | `watermark` |
+| **5. PDF Information** | Deep structural inspection: page dimensions (pt, in, mm), rotations, encryption status, PDF version, and text density metrics. | `info` |
+| **6. Metadata Sanitizer** | Strips or updates standard properties (Title, Author, Subject, Keywords) with forensic diff tracking. | `sanitize-metadata` |
+| **7. Text Extractor** | Extracts selectable character streams via `pdfplumber` with word counts, copy-to-clipboard, and clean `.txt` export. | `extract-text` |
+| **8. PDF Validator** | Multi-point structural validation verifying `%PDF` magic bytes, `%%EOF` trailer markers, catalog nodes, and xref integrity. | `validate` |
+| **9. Output History** | Dedicated session tracking with instant safe deletion and automatic 24-hour expiration TTL. | `/api/files` |
 
 ---
 
-## Technology Stack
-
-Strictly adhering to permitted languages: **Python, HTML, CSS, and Vanilla JavaScript**.
-
-- **Backend**: Python 3.9+ (Flask 3.x web server)
-- **PDF Core Engines**: `pypdf` 6.x, `pdfplumber` 0.11.x, `reportlab` 4.x/5.x, `pillow` 10.x+
-- **CLI Framework**: `Click` 8.x
-- **Testing**: `pytest` 8.x (37 automated tests covering operations, security, CLI, and API)
-- **Frontend Architecture**:
-  - Semantic HTML5 with accessible ARIA attributes
-  - Custom Vanilla CSS3 design system with CSS custom properties (tokens)
-  - Capsule-style Dark & Light mode toggle switch with `localStorage` persistence and FOUT prevention
-  - Vanilla JavaScript ES6+ (Zero external libraries or Node.js frameworks)
-
----
-
-## Project Structure
+## Project Directory Layout
 
 ```text
 PDF Toolkit Pro/
-├── app.py                      # Flask application entry point & REST endpoints
-├── pdf_toolkit/                # Reusable Python processing package
-│   ├── __init__.py             # Package exports & metadata
-│   ├── config.py               # Paths, storage limits, and environment settings
-│   ├── exceptions.py           # Structured toolkit exceptions
-│   ├── logging_config.py       # Safe logging setup
-│   ├── cli.py                  # Click command-line interface
-│   ├── operations/             # Pure PDF manipulation operations
+├── app.py                      # Flask web application & REST API routes
+├── pdf_toolkit/                # Shared Python processing package
+│   ├── __init__.py             # Package exports & version metadata
+│   ├── config.py               # Settings, storage limits (1 GB), & paths
+│   ├── exceptions.py           # Custom exception hierarchy
+│   ├── logging_config.py       # Structured logging with secret redaction
+│   ├── cli.py                  # Click command-line interface entry points
+│   ├── operations/             # Pure PDF processing modules
 │   │   ├── __init__.py
 │   │   ├── merge.py            # PDF document merging
-│   │   ├── split.py            # Splitting & range parsing (e.g. 1-3,5)
-│   │   ├── rotate.py           # 90/180/270 degree rotation
-│   │   ├── watermark.py        # Vector text & image watermark overlays
-│   │   ├── info.py             # Document inspection & metrics
-│   │   ├── metadata.py         # Metadata editing & sanitization
-│   │   ├── extract.py          # pdfplumber text extraction
-│   │   └── validate.py         # Conformance & integrity checks
-│   ├── security/               # Validation & path safety
+│   │   ├── split.py            # Page splitting & range parser (1-3,5)
+│   │   ├── rotate.py           # 90°/180°/270° clockwise rotations
+│   │   ├── watermark.py        # Vector text & image watermarking
+│   │   ├── info.py             # Document inspection & dimensional metrics
+│   │   ├── metadata.py         # Metadata sanitization & editing
+│   │   ├── extract.py          # pdfplumber character extraction
+│   │   └── validate.py         # Conformance & parser compliance checks
+│   ├── security/               # Validation & sanitization guards
 │   │   ├── __init__.py
-│   │   ├── sanitizer.py        # Filename sanitization & path traversal guards
-│   │   └── validation.py       # Magic byte & structure validators
-│   └── services/               # Shared orchestration services
+│   │   ├── sanitizer.py        # Filename & path traversal sanitizers
+│   │   └── validation.py       # Magic bytes & PDF header verification
+│   └── services/               # Shared business logic
 │       ├── __init__.py
-│       ├── storage.py          # Atomic writes, manifest tracking & cleanup
-│       └── processor.py        # Shared PDFProcessorService layer
+│       ├── storage.py          # Atomic writes, manifest tracking, TTL cleanup
+│       └── processor.py        # Centralized PDFProcessorService layer
 ├── templates/
-│   └── index.html              # HTML5 application interface
+│   └── index.html              # Responsive HTML5 SaaS interface
 ├── static/
 │   ├── css/
-│   │   └── style.css           # Modern SaaS stylesheet & design system
+│   │   └── style.css           # Vanilla CSS design system & micro-animations
 │   ├── js/
-│   │   └── app.js              # Vanilla JavaScript frontend engine
+│   │   └── app.js              # Vanilla JS client logic & drag-and-drop
 │   └── images/
-│       ├── logo.svg            # Application vector logo
-│       └── favicon.svg         # Application vector favicon
-├── tests/                      # Automated pytest suite (37 tests)
+│       ├── logo.svg            # Brand logo icon
+│       └── favicon.svg         # Application favicon
+├── tests/                      # Automated test suite (37 tests)
 │   ├── __init__.py
-│   ├── conftest.py             # Synthetic PDF fixtures & test client
+│   ├── conftest.py             # Synthetic PDF fixtures & storage isolation
 │   ├── test_operations.py      # Operations unit tests
-│   ├── test_security.py        # Path traversal & sanitization tests
+│   ├── test_security.py        # Security & sanitization tests
 │   ├── test_cli.py             # Click CLI integration tests
 │   └── test_web_api.py         # Flask REST API tests
-├── uploads/                    # Temporary session upload directory
-├── processed_pdfs/             # Temporary processed assets directory
-├── requirements.txt            # Python dependencies
-├── pyproject.toml              # Build & packaging configuration
-├── .env.example                # Documented environment variable template
-├── .gitignore                  # Git ignore rules
-└── README.md                   # Complete documentation
+├── uploads/                    # Temporary session upload folder (.gitignore)
+├── processed_pdfs/             # Temporary processed asset folder (.gitignore)
+├── requirements.txt            # Production dependencies
+├── pyproject.toml              # Build & packaging specification
+├── .env.example                # Documented configuration template
+├── .gitignore                  # Security-first Git exclusion rules
+└── README.md                   # Professional project documentation
 ```
 
 ---
 
-## Installation & Setup
+## Installation & Quick Start
 
 ### 1. Prerequisites
-- Python 3.9 or higher installed on your system.
+* Python 3.9, 3.10, 3.11, 3.12, 3.13, or 3.14.
 
-### 2. Set Up Virtual Environment (Recommended)
+### 2. Clone & Environment Setup
 ```bash
+# Clone the repository
+git clone https://github.com/<your-username>/pdf-toolkit-pro.git
+cd "pdf-toolkit-pro"
+
+# Create a virtual environment
 python -m venv venv
 
-# On Windows (PowerShell):
+# Activate on Windows (PowerShell):
 .\venv\Scripts\Activate.ps1
 
-# On macOS / Linux:
+# Activate on Linux / macOS:
 source venv/bin/activate
 ```
 
@@ -129,16 +172,19 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configure Environment (Optional)
-Copy `.env.example` to `.env` to customize settings:
 ```bash
+# Windows
 copy .env.example .env
+
+# Linux / macOS
+cp .env.example .env
 ```
 
 ---
 
-## Running the Web Application
+## Running the Web Interface
 
-To launch the local web server:
+Launch the local web server:
 ```bash
 python app.py
 ```
@@ -151,9 +197,9 @@ http://127.0.0.1:5000
 
 ## Command-Line Interface (CLI) Usage
 
-The Click CLI provides direct access to all operations using the same processing services.
+The Click CLI provides headless access to all operations using the identical underlying services.
 
-### Help & Version
+### Help & Version Information
 ```bash
 python -m pdf_toolkit.cli --help
 python -m pdf_toolkit.cli version
@@ -161,102 +207,89 @@ python -m pdf_toolkit.cli version
 
 ### 1. Merge Documents
 ```bash
-python -m pdf_toolkit.cli merge doc1.pdf doc2.pdf doc3.pdf -o merged_output.pdf
+python -m pdf_toolkit.cli merge report1.pdf report2.pdf appendix.pdf -o merged_output.pdf
 ```
 
 ### 2. Split Document
 ```bash
-# Split every page into separate files
-python -m pdf_toolkit.cli split document.pdf -m all_pages -o ./split_pages
+# Split into individual pages
+python -m pdf_toolkit.cli split doc.pdf -m all_pages -o ./split_output
 
 # Split into custom ranges
-python -m pdf_toolkit.cli split document.pdf -m custom_ranges -r "1-3, 5, 8-10" -o ./ranges
+python -m pdf_toolkit.cli split doc.pdf -m custom_ranges -r "1-3, 5, 8-10" -o ./ranges
 
 # Extract selection into a single combined file
-python -m pdf_toolkit.cli split document.pdf -m extract_selection -r "1, 3, 5" -o ./extracted
+python -m pdf_toolkit.cli split doc.pdf -m extract_selection -r "1, 3, 5" -o ./extracted.pdf
 ```
 
 ### 3. Rotate Pages
 ```bash
 # Rotate all pages clockwise by 90 degrees
-python -m pdf_toolkit.cli rotate document.pdf -a 90 -o rotated.pdf
+python -m pdf_toolkit.cli rotate doc.pdf -a 90 -o rotated_doc.pdf
 
-# Rotate only specific pages
-python -m pdf_toolkit.cli rotate document.pdf -a 180 -s selected -r "2, 4" -o rotated_p2_p4.pdf
+# Rotate specific pages only
+python -m pdf_toolkit.cli rotate doc.pdf -a 180 -s selected -r "2, 4" -o rotated_p2_p4.pdf
 ```
 
-### 4. Watermark Document
+### 4. Apply Watermarks
 ```bash
 # Vector text watermark
-python -m pdf_toolkit.cli watermark document.pdf -t "CONFIDENTIAL" --color "#dc2626" --opacity 0.25 -o watermarked.pdf
+python -m pdf_toolkit.cli watermark doc.pdf -t "CONFIDENTIAL" --color "#2563eb" --opacity 0.3 -o watermarked.pdf
 
-# Branded image logo watermark
-python -m pdf_toolkit.cli watermark document.pdf -i logo.png --opacity 0.35 -o branded.pdf
+# Branded image watermark
+python -m pdf_toolkit.cli watermark doc.pdf -i logo.png --opacity 0.4 -o branded.pdf
 ```
 
-### 5. Inspect Document Information
+### 5. Inspect PDF Metrics
 ```bash
-python -m pdf_toolkit.cli info document.pdf
-
-# Output machine-readable JSON
-python -m pdf_toolkit.cli info document.pdf --json-out
+python -m pdf_toolkit.cli info doc.pdf
+python -m pdf_toolkit.cli info doc.pdf --json-out
 ```
 
 ### 6. Sanitize Metadata
 ```bash
-# Strip all standard metadata properties
-python -m pdf_toolkit.cli sanitize-metadata document.pdf -a strip_all -o sanitized.pdf
+# Strip all metadata
+python -m pdf_toolkit.cli sanitize-metadata doc.pdf -a strip_all -o sanitized.pdf
 
-# Replace with custom fields
-python -m pdf_toolkit.cli sanitize-metadata document.pdf -a update --title "Quarterly Report" --author "Finance Team" -o updated.pdf
+# Custom replacement
+python -m pdf_toolkit.cli sanitize-metadata doc.pdf -a update --title "Q3 Summary" --author "Harsh Patel" -o updated.pdf
 ```
 
 ### 7. Extract Text
 ```bash
-# Extract and preview in terminal
-python -m pdf_toolkit.cli extract-text document.pdf
-
-# Extract and save to a .txt file
-python -m pdf_toolkit.cli extract-text document.pdf -o extracted_content.txt
+python -m pdf_toolkit.cli extract-text doc.pdf
+python -m pdf_toolkit.cli extract-text doc.pdf -o extracted.txt
 ```
 
-### 8. Validate Document
+### 8. Validate Conformance
 ```bash
-python -m pdf_toolkit.cli validate document.pdf
+python -m pdf_toolkit.cli validate doc.pdf
 ```
 
 ---
 
-## Running Automated Tests
+## Automated Test Suite
 
-Run the full pytest suite:
+The test suite covers operations, edge cases, security sanitizers, CLI invocations, and web endpoints:
+
 ```bash
 python -m pytest -v
 ```
 
-All 37 tests verify:
-- Merge ordering and page counts
-- Splitting modes and range syntax edge cases
-- 90°, 180°, and 270° clockwise rotations
-- Vector text watermarks and PNG image watermarks
-- Metadata extraction, stripping, and updating
-- Text extraction accuracy via `pdfplumber`
-- Structural integrity checking for corrupted files
-- Password-protected document decipherability
-- Path traversal rejection (`../../etc/passwd`)
-- Filename sanitization and 0-byte upload rejection
-- CLI subcommands via `click.testing.CliRunner`
-- Flask REST API routes, downloads, and safe asset deletion
+### Test Coverage Summary (37 Tests Passed)
+* ✅ **Operations**: Merge ordering, range syntax (`1-3, 5`), rotations, watermarks, metadata diffs, text extraction.
+* ✅ **Security**: Path traversal detection (`../../etc/passwd`), null bytes, shell characters, 0-byte rejections.
+* ✅ **CLI Integration**: Click command execution, arguments, flags, exit codes, output files.
+* ✅ **Web API**: Upload endpoints, operations pipeline, streaming downloads, safe deletion.
 
 ---
 
-## Security, Privacy & Integrity Disclosures
+## Security, Privacy & Integrity
 
-1. **Local Execution**: All PDF transformations, parsing, and watermarking execute exclusively on the host server. No external network requests or third-party web services are called.
-2. **Non-Destructive Processing**: Original input files are never overwritten in place. Output files are written to isolated temporary files, verified to be reopenable, and atomically moved into destination storage.
-3. **Forensic Sanitization Scope**: Removing metadata removes standard document header properties (Title, Author, Producer, ModDate). It does **not** constitute complete forensic redaction; digital signatures may be broken, and content text, annotations, attachments, and form fields remain intact unless manually redacted.
-4. **Scanned Documents & OCR**: The text extraction engine extracts true digital text streams. Scanned raster documents without OCR text layers are transparently identified and reported with an explanatory notice.
-5. **Temporary File Retention**: Uploaded and processed assets are purged automatically after 24 hours. Users can immediately delete generated files via the web interface.
+1. **Local Isolation**: All parsing and transformations occur within the local host process. No outbound requests or telemetry calls are made.
+2. **Atomic Writes**: Assets are written to temporary files and atomically moved upon verified completion, preventing partial writes.
+3. **Forensic Privacy Scope**: Metadata sanitization strips standard document headers (Title, Author, ModDate). It does not alter visible text or delete embedded page forms.
+4. **Automatic Retention TTL**: Uploaded and generated assets expire automatically after 24 hours. Users can trigger immediate manual deletion through the UI.
 
 ---
 
@@ -264,4 +297,4 @@ All 37 tests verify:
 
 Authored by **Harsh Patel**.  
 **“Copyright Reserved. Made by Harsh Patel.”**  
-Released under the MIT License.
+Released under the [MIT License](LICENSE).

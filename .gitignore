@@ -48,5 +48,27 @@ processed_pdfs/*
 .coverage
 htmlcov/
 
-# Local Environment Variables
+# Local Environment Variables & Secrets
 .env
+.env.*
+.env.local
+.env.production
+.env.development
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+service-account*.json
+credentials*.json
+
+# Logs & Temporary Files
+*.log
+*.tmp
+*.bak
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+

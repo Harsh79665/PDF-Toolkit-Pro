@@ -12,13 +12,32 @@ from app import app
 from pdf_toolkit.services.storage import StorageManager
 from pdf_toolkit.services.processor import PDFProcessorService
 
+@pytest.fixture(autouse=True)
+def isolate_test_storage(tmp_path, monkeypatch):
+    """Ensures all tests (unit, cli, web) write only to temporary storage."""
+    uploads = tmp_path / "uploads"
+    processed = tmp_path / "processed"
+    uploads.mkdir(parents=True, exist_ok=True)
+    processed.mkdir(parents=True, exist_ok=True)
+
+    isolated_storage = StorageManager(uploads_dir=uploads, processed_dir=processed)
+    isolated_processor = PDFProcessorService(storage_manager=isolated_storage)
+
+    import app as flask_app
+    import pdf_toolkit.cli as cli_mod
+
+    monkeypatch.setattr(flask_app, "storage", isolated_storage)
+    monkeypatch.setattr(flask_app, "processor", isolated_processor)
+    monkeypatch.setattr(cli_mod, "processor", isolated_processor)
+
+
 @pytest.fixture
 def test_dirs(tmp_path):
     """Provides temporary directories for uploads and processed assets."""
     uploads = tmp_path / "uploads"
     processed = tmp_path / "processed"
-    uploads.mkdir()
-    processed.mkdir()
+    uploads.mkdir(parents=True, exist_ok=True)
+    processed.mkdir(parents=True, exist_ok=True)
     return {"uploads": uploads, "processed": processed}
 
 

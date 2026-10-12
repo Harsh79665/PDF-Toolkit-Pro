@@ -33,7 +33,7 @@
     <div class="container nav-container">
       <a href="#hero" class="nav-brand" aria-label="PDF Utility Toolkit Home">
         <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="brand-logo-img">
-        <span class="brand-text">PDF Toolkit<span class="brand-badge">Intermediate</span></span>
+        <span class="brand-text">PDF Toolkit<span class="brand-badge">PRO</span></span>
       </a>
 
       <nav aria-label="Primary Navigation">
@@ -257,7 +257,7 @@
               <h4 class="dropzone-title">Click to upload or drag & drop documents</h4>
               <p class="dropzone-subtitle">Select files from your device. Supported formats: .PDF (and .PNG/.JPG for image watermarks).</p>
               <div class="dropzone-limits">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Max upload size: {{ max_upload_mb }} MB</span>
+                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Max upload size: {{ max_upload_label or "1 GB" }}</span>
                 <span>•</span>
                 <span>Max pages: {{ max_pages }}</span>
               </div>
@@ -329,6 +329,11 @@
                 <span class="form-label-desc">1-based page indices. Example: <code>1-3, 5, 8-10</code></span>
               </label>
               <input type="text" id="splitRangeExpr" class="form-input" placeholder="e.g. 1-2, 4, 6-8">
+              <div class="range-chips">
+                <span class="range-chip" data-target="splitRangeExpr" data-val="1-2">Pages 1-2</span>
+                <span class="range-chip" data-target="splitRangeExpr" data-val="1, 3">Pages 1 & 3</span>
+                <span class="range-chip" data-target="splitRangeExpr" data-val="1-5">First 5 pages</span>
+              </div>
             </div>
 
             <div class="form-group">
@@ -380,6 +385,11 @@
             <div class="form-group" id="rotateRangeGroup">
               <label for="rotateRangeExpr" class="form-label">Page Selection Expression</label>
               <input type="text" id="rotateRangeExpr" class="form-input" placeholder="e.g. 1, 3, 5-7">
+              <div class="range-chips">
+                <span class="range-chip" data-target="rotateRangeExpr" data-val="1">Page 1 only</span>
+                <span class="range-chip" data-target="rotateRangeExpr" data-val="2">Page 2 only</span>
+                <span class="range-chip" data-target="rotateRangeExpr" data-val="1, 3">Pages 1 & 3</span>
+              </div>
             </div>
           </div>
 
@@ -472,8 +482,17 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="wmRangeGroup" style="display: none;">
+                  <label for="wmRangeExpr" class="form-label">
+                    Target Page Numbers
+                    <span class="form-label-desc">1-based page indices. Example: <code>1, 3-5</code></span>
+                  </label>
                   <input type="text" id="wmRangeExpr" class="form-input" placeholder="e.g. 1, 3-5">
+                  <div class="range-chips">
+                    <span class="range-chip" data-target="wmRangeExpr" data-val="1">Page 1 only</span>
+                    <span class="range-chip" data-target="wmRangeExpr" data-val="1, 3">Pages 1 & 3</span>
+                    <span class="range-chip" data-target="wmRangeExpr" data-val="1-5">Pages 1-5</span>
+                  </div>
                 </div>
               </div>
 
@@ -576,8 +595,17 @@
                 </label>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="extractRangeGroup" style="display: none;">
+              <label for="extractRangeExpr" class="form-label">
+                Page Selection Expression
+                <span class="form-label-desc">1-based page indices. Example: <code>1-4, 7</code></span>
+              </label>
               <input type="text" id="extractRangeExpr" class="form-input" placeholder="e.g. 1-4, 7">
+              <div class="range-chips">
+                <span class="range-chip" data-target="extractRangeExpr" data-val="1">Page 1 only</span>
+                <span class="range-chip" data-target="extractRangeExpr" data-val="1-3">First 3 pages</span>
+                <span class="range-chip" data-target="extractRangeExpr" data-val="1, 2">Pages 1 & 2</span>
+              </div>
             </div>
           </div>
 
@@ -817,7 +845,7 @@
 
         <div class="about-content-card">
           <p class="about-text">
-            <strong>PDF Utility Toolkit — Intermediate</strong> was designed to automate common office document workflows through secure, accurate, and non-destructive PDF manipulation. Working with PDF documents frequently requires combining multiple source files, extracting specific page subsets, re-orienting landscape diagrams, protecting assets with watermarks, inspecting internal metadata, and sanitizing identifying attributes before distribution.
+            <strong>PDF Utility Toolkit Pro</strong> was designed to automate common office document workflows through secure, accurate, and non-destructive PDF manipulation. Working with PDF documents frequently requires combining multiple source files, extracting specific page subsets, re-orienting landscape diagrams, protecting assets with watermarks, inspecting internal metadata, and sanitizing identifying attributes before distribution.
           </p>
           <p class="about-text">
             Unlike commercial online utilities that silently upload confidential corporate or personal documents to third-party cloud servers, PDF Utility Toolkit executes all operations within your own local Python environment. Original documents are treated as read-only inputs, and every output is atomically constructed and verified before delivery.
@@ -973,7 +1001,9 @@
       </div>
 
       <div class="footer-bottom">
-        <p class="footer-copyright">Copyright Reserved. Made by Harsh Patel.</p>
+        <p class="footer-copyright">
+          &copy; Copyright Reserved. Made by Harsh Patel.
+        </p>
         <p style="font-size: 0.8rem; color: var(--text-muted);">
           Core: Authored a CLI PDF manipulation toolkit executing non-destructive page transformations, merges, and watermarking, extended with a responsive web interface.
         </p>

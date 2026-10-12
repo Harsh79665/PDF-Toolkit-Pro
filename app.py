@@ -1,4 +1,4 @@
-"""Flask Web Application for PDF Utility Toolkit — Intermediate."""
+"""Flask Web Application for PDF Utility Toolkit Pro."""
 
 import os
 import sys
@@ -116,6 +116,7 @@ def index():
         app_description=APP_DESCRIPTION,
         copyright_text=COPYRIGHT_TEXT,
         max_upload_mb=MAX_CONTENT_LENGTH // (1024 * 1024),
+        max_upload_label="1 GB",
         max_pages=MAX_PAGES_LIMIT
     )
 
