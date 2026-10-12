@@ -9,11 +9,16 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/Harsh79665/PDF-Toolkit-Pro/actions"><img src="https://github.com/Harsh79665/PDF-Toolkit-Pro/actions/workflows/ci.yml/badge.svg" alt="CI Tests"></a>
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-3776AB.svg?style=flat-square&logo=python&logoColor=white" alt="Python Version"></a>
   <a href="https://pytest.org/"><img src="https://img.shields.io/badge/Tests-37%20Passed%20(100%25)-10B981.svg?style=flat-square&logo=pytest&logoColor=white" alt="Pytest Status"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-F59E0B.svg?style=flat-square" alt="MIT License"></a>
   <a href="#security-privacy--integrity"><img src="https://img.shields.io/badge/Privacy-100%25%20Local%20Engine-2563EB.svg?style=flat-square&logo=shield" alt="Local Engine"></a>
   <a href="#core-capabilities"><img src="https://img.shields.io/badge/Capacity-Up%20to%201%20GB-8B5CF6.svg?style=flat-square" alt="1GB Capacity"></a>
+</p>
+
+<p align="center">
+  <img src="static/images/banner.png" alt="PDF Toolkit Pro Banner" width="100%">
 </p>
 
 ---
@@ -153,8 +158,8 @@ PDF Toolkit Pro/
 ### 2. Clone & Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/pdf-toolkit-pro.git
-cd "pdf-toolkit-pro"
+git clone https://github.com/Harsh79665/PDF-Toolkit-Pro.git
+cd "PDF-Toolkit-Pro"
 
 # Create a virtual environment
 python -m venv venv
@@ -192,6 +197,14 @@ Open your browser and navigate to:
 ```text
 http://127.0.0.1:5000
 ```
+
+### Docker Quickstart (Optional)
+
+Deploy instantly with Docker Compose:
+```bash
+docker compose up -d
+```
+The interface will be live at `http://localhost:5000`.
 
 ---
 
@@ -293,8 +306,27 @@ python -m pytest -v
 
 ---
 
+## Star History & Community Support
+
+If you find **PDF Utility Toolkit Pro** useful, please consider giving it a star ⭐! Your support helps make local-first, privacy-respecting software discoverable to more developers worldwide.
+
+<p align="center">
+  <a href="https://star-history.com/#Harsh79665/PDF-Toolkit-Pro&Date">
+    <img src="https://api.star-history.com/svg?repos=Harsh79665/PDF-Toolkit-Pro&type=Date" alt="Star History Chart" width="85%">
+  </a>
+</p>
+
+---
+
+## Contributing
+
+Contributions, bug reports, and suggestions are welcome! Please read the [Contributing Guidelines](CONTRIBUTING.md) before opening a pull request.
+
+---
+
 ## License & Authorship
 
 Authored by **Harsh Patel**.  
 **“Copyright Reserved. Made by Harsh Patel.”**  
 Released under the [MIT License](LICENSE).
+

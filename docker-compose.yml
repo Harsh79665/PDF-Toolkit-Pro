@@ -1,0 +1,14 @@
+services:
+  pdf-toolkit-pro:
+    build: .
+    container_name: pdf-toolkit-pro
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=5000
+      - DEBUG=false
+    volumes:
+      - ./uploads:/app/uploads
+      - ./processed_pdfs:/app/processed_pdfs
